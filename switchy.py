@@ -6,8 +6,7 @@ import wx.grid as gridlib
 
 ########################################################################
 class PanelOne(wx.Panel):
-    """ This panel is a grid. If the user clicks 'FILE > Switch Panels' from the menu, it will switch from the initial
-    'Welcome' panel, to this panel."""
+    """ ."""
 
     #----------------------------------------------------------------------
     def __init__(self, parent):
@@ -31,7 +30,8 @@ class PanelOne(wx.Panel):
 
 ########################################################################
 class PanelTwo(wx.Panel):
-    """"""
+    """This panel displays a welcome message to the user depending on the user input. Empty string is valid and still displays welcome
+    message. If the user hits cancel, no message is displayed. """
 
     #----------------------------------------------------------------------
     def __init__(self, parent):
