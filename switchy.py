@@ -6,7 +6,8 @@ import wx.grid as gridlib
 
 ########################################################################
 class PanelOne(wx.Panel):
-    """"""
+    """ This panel is a grid. If the user clicks 'FILE > Switch Panels' from the menu, it will switch from the initial
+    'Welcome' panel, to this panel."""
 
     #----------------------------------------------------------------------
     def __init__(self, parent):
