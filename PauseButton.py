@@ -112,6 +112,7 @@ class tetrous(wx.Frame):    #all widgets aside from another frame or dialogue bo
         if self.GameState == 0:
           #  self.timer.Start(1000)
             start_button.SetLabel("Pause")
+            start_button.SetName("Pause")
             print("Game is now started. Click 'Pause' to pause")
             self.GameState = 1
             self.OnReincarnate()
@@ -122,6 +123,7 @@ class tetrous(wx.Frame):    #all widgets aside from another frame or dialogue bo
             if self.GameState == 1:
              #   self.timer.Stop()
                 start_button.SetLabel("Start")
+                start_button.SetName("Start")
                 self.GameState = 0
                 print("Game is Paused. Click 'Start' to start")
                 self.OnReincarnate()
