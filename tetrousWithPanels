@@ -1,0 +1,115 @@
+# tetrous.py
+#wx.TextCtrl parameters are parent, id, value, pos size, style
+import wx  #All functions and objects from the basic modules will start with a wx.
+
+APP_EXIT = 1 #
+
+class MyPopupMenu(wx.Menu):
+
+    def __init__(self, parent):
+        super(MyPopupMenu, self).__init__()
+
+        self.parent = parent
+
+        mmi = wx.MenuItem(self, wx.NewId(), 'Minimize')
+        self.Append(mmi)
+        self.Bind(wx.EVT_MENU, self.OnMinimize, mmi)
+
+        cmi = wx.MenuItem(self, wx.NewId(), 'Close')
+        self.AppendItem(cmi)
+        self.Bind(wx.EVT_MENU, self.OnClose, cmi)
+
+    def OnMinimize(self, e):
+        self.parent.Iconize()
+
+    def OnClose(self, e):
+        self.parent.Close()
+
+class tetrous(wx.Frame):    #all widgets belong in this class aside from another frame or dialogue boxes
+
+    def __init__(self, parent, *args, **kwargs):
+        super(MyPopupMenu, self).__init__()
+
+    def __init__(self, parent, title, *args, **kwargs):
+        super(tetrous, self).__init__(parent, title=title,
+            size=(600, 900), *args, **kwargs)
+
+
+        self.Centre()
+        self.Show()     #self = wx.
+        self.InitUI()
+
+    def InitUI(self):
+
+        panel = wx.Panel(self)
+        self.panel = panel
+        panel.Bind(wx.EVT_PAINT, self.OnPaint)
+
+        font = wx.SystemSettings.GetFont(wx.SYS_SYSTEM_FONT) #new
+        font.SetPointSize(9)
+
+        menubar = wx.MenuBar()
+
+        fileMenu = wx.Menu() #menu object created under menubar
+        fileMenu.Append(wx.ID_NEW, '&Reincarnate\tCtrl+R')
+        fileMenu.Append(wx.ID_OPEN, '&Load\tCtrl+L')
+        fileMenu.Append(wx.ID_SAVE, '&Save\tCtrl+S')
+        fileMenu.AppendSeparator()
+
+        imp = wx.Menu()     #submenu of wx.Menu
+        imp.Append(wx.ID_ANY, 'Change difficulty...')
+        imp.Append(wx.ID_ANY, 'Import level...')
+        imp.Append(wx.ID_ANY, 'Import theme...')
+        imp.Append(wx.ID_ANY, 'Import mod...')
+
+        fileMenu.Append(wx.ID_ANY, 'O&ptions', imp)
+        fileMenu.Append(wx.ID_ABOUT, '&About\tCtrl+A')
+
+
+        qmi = wx.MenuItem(fileMenu, APP_EXIT, '&AnHero\tCtrl+Q') #menu items are also the commands associated with the items creates the qmi item
+        qmi.SetBitmap(wx.Bitmap('exit.png'))
+
+        fileMenu.Append(qmi)
+
+        menubar.Append(fileMenu, '&Ask')
+
+        self.SetMenuBar(menubar)
+        self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightDown) #new
+        self.SetSize((250, 200)) #new
+        self.SetTitle('Context Menu') #new
+        self.Show(True) #new
+        self.Bind(wx.EVT_MENU, self.OnQuit, qmi)#qmifitem) #binds the ect_menu item to the onquit method which closes the appplication
+        self.SetSize((500, 800))
+        self.SetTitle('notsuspicious.exe')
+        self.Centre()
+        self.Show(True) #actually shows the widget
+
+    def OnPaint(self,event):
+        dc = wx.BufferedPaintDC(self.panel)
+
+        dc.SetPen(wx.Pen('#4c4c4c', 1, wx.SOLID))
+        dc.DrawRectangle(10, 15, 25, 25) # the last two parameters must be the dimensions of the rectangle
+        #more rectangles here
+
+    def OnRightDown(self, f):
+        self.PopupMenu(MyPopupMenu(self), f.GetPosition())
+
+    def OnQuit(self, e):
+        self.Close()
+
+    def OnReincarnate(self):
+        self.Refresh()
+
+
+#_______________________________________________________________________
+
+
+def main():
+
+    app = wx.App()
+    tetrous(None, title='Size')
+    app.MainLoop()
+
+if __name__ == '__main__':
+
+    main()
